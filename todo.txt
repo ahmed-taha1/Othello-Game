@@ -1,0 +1,7 @@
+- winners
+- draw
+- diffuclty window
+- animation
+- scale grid
+- click not just in the center of the cell to play
+- change piece shape

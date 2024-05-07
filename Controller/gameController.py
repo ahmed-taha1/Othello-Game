@@ -1,5 +1,3 @@
-import time
-
 from GameLogic.board import Board as BoardEntity
 from View.board import Board as BoardView
 from GameLogic.alphaBetaPruning import get_best_move
@@ -27,9 +25,9 @@ class GameController:
     def play(self, row, col):
         if len(self.board_entity.get_possible_cell_moves(self.player_id)) == 0:
             self.end_game()
-        self.clear_cells()
         if not self.board_entity.is_move_valid(row, col, self.player_id):
             return
+        self.clear_cells()
 
         # add current play to the board
         self.board_entity.add_piece(row, col, self.player_id)
