@@ -26,15 +26,13 @@ class Board:
 
     def add_piece(self, i, j, curr_player_color):
         def flip_pieces(i_play_position, j_play_position, color, change_of_coordinates):
-            rows = len(self.grid)
-            cols = len(self.grid[0])
             another_player_color = 1 - color
             count = self._count_possible_flips_in_direction(i_play_position, j_play_position, curr_player_color, change_of_coordinates)
             if not count:
                 return
-            temp_i = i_play_position
-            temp_j = j_play_position
-            while rows > temp_i >= 0 and cols > temp_j >= 0:
+            temp_i = i_play_position + change_of_coordinates[0]
+            temp_j = j_play_position + change_of_coordinates[1]
+            while self.rows > temp_i >= 0 and self.cols > temp_j >= 0:
                 if self.grid[temp_i][temp_j] == curr_player_color:
                     break
                 elif self.grid[temp_i][temp_j] == another_player_color:
@@ -56,7 +54,7 @@ class Board:
         return right + left + up + down
 
     def _count_possible_flips_in_direction(self, i, j, curr_player_color, change_of_coordinates):
-        if curr_player_color == -1 or self.grid[i][j] != -1:
+        if curr_player_color == -1:
             return 0
         another_color_cnt = 0
         another_player_color = 1 - curr_player_color
@@ -76,9 +74,10 @@ class Board:
         valid_moves = []
         for i in range(self.rows):
             for j in range(self.cols):
-                score = self.count_num_of_possible_flips(i, j, curr_player_color)
-                if score != 0:
-                    valid_moves.append([i, j])
+                if self.grid[i][j] == -1:
+                    score = self.count_num_of_possible_flips(i, j, curr_player_color)
+                    if score != 0:
+                        valid_moves.append([i, j])
         return valid_moves
 
     def clone(self):
