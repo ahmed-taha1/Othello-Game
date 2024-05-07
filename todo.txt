@@ -1,7 +1,8 @@
-- winners
-- draw
-- diffuclty window
-- animation
-- scale grid
-- click not just in the center of the cell to play
-- change piece shape
+- winners --> done but need better
+- draw --> done but need better
+- difficulties window --> done
+- animation -> done
+- scale grid -> not needed grid is fixed now
+- click not just in the center of the cell to play --> done
+- change piece shape --> done
+- organize main

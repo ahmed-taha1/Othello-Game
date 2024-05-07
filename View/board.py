@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 from View.piece import Piece
 
@@ -13,9 +14,9 @@ class Board:
 
     def __init__(self, master):
         self.master = master
-        self.master.title("Othello")
         self.board = []
         self.init_board()
+        self.result_label = tk.Label(self.master, text="", font=("Arial", 45))
 
     def init_board(self):
         for i in range(self.rows):
@@ -58,4 +59,6 @@ class Board:
     def set_cell_click_callback(self, callback):
         self.click_callback = callback
 
-
+    def end_game(self, message):
+        self.result_label.config(text=message)
+        self.result_label.grid(row=self.rows // 2, column=self.cols // 2)

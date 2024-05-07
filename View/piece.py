@@ -1,9 +1,12 @@
 class Piece:
+    piece_id = 0
+
     def __init__(self, canvas, color):
         self.canvas = canvas
         self.color = color
         self.render_piece()
-        self.piece_id
 
     def render_piece(self):
-        self.piece_id = self.canvas.create_text(30, 30, text="♟", font=("Arial", 20), fill=self.color)
+        x, y = 50, 50
+        radius = 30
+        self.piece_id = self.canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill=self.color)
