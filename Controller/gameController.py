@@ -8,9 +8,10 @@ from GameLogic.alphaBetaPruning import get_best_move
 class GameController:
     player_id = 0
     robot_id = 1
-    depth = 1
+    # depth = 1
 
-    def __init__(self, board_entity: BoardEntity, board_view: BoardView):
+    def __init__(self, board_entity: BoardEntity, board_view: BoardView,level:int):
+        self.depth = level
         self.board_entity: BoardEntity = board_entity
         self.board_view: BoardView = board_view
         self.init_view_callbacks()
@@ -24,6 +25,8 @@ class GameController:
         self.board_view.render()
 
     def play(self, row, col):
+        if len(self.board_entity.get_possible_cell_moves(self.player_id)) == 0:
+            self.end_game()
         self.clear_cells()
         if not self.board_entity.is_move_valid(row, col, self.player_id):
             return
@@ -34,8 +37,9 @@ class GameController:
 
         # make the computer plays
         robot_move = get_best_move(self.board_entity, self.robot_id, self.depth)
-        if robot_move != [-1, -1]:
-            self.board_entity.add_piece(robot_move[0], robot_move[1], self.robot_id)
+        if robot_move == [-1, -1]:
+            self.end_game()
+        self.board_entity.add_piece(robot_move[0], robot_move[1], self.robot_id)
         self.update_ui_grid()
         # display next possible plays
         self.display_plays()
@@ -61,3 +65,7 @@ class GameController:
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 self.board_view.clear_cell_highlight(i, j)
+
+    def end_game(self):
+        human_score = self.board_entity.get_color_count(self.player_id)
+        robot_score = self.board_entity.get_color_count(self.robot_id)

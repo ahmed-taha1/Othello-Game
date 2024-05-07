@@ -28,7 +28,7 @@ def alpha_beta_pruning(board: Board, player_color, alpha, beta, depth, is_maximi
         max_score = -math.inf
         for move in moves:
             clonedBoard = board.clone()
-            clonedBoard.set_human_piece(move[0], move[1], player_color)
+            clonedBoard.add_piece(move[0], move[1], player_color)
             move_score = alpha_beta_pruning(clonedBoard, 1 - player_color, alpha, beta, depth - 1, False)
             max_score = max(max_score, move_score)
             alpha = max(alpha, move_score)

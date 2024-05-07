@@ -13,7 +13,7 @@ class Board:
 
     def __init__(self, master):
         self.master = master
-        self.master.title("Board")
+        self.master.title("Othello")
         self.board = []
         self.init_board()
 
@@ -21,7 +21,7 @@ class Board:
         for i in range(self.rows):
             row = []
             for j in range(self.cols):
-                square = tk.Canvas(self.master, width=50, height=50, bg=self.cell_color)
+                square = tk.Canvas(self.master, width=100, height=100, bg=self.cell_color)
                 square.grid(row=i, column=j)
                 square.bind("<Button-1>", self.cell_clicked)
                 square.piece = None
