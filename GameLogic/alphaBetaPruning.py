@@ -1,5 +1,5 @@
 import math
-from board import Board
+from GameLogic.board import Board
 
 
 def get_best_move(board: Board, player_color, depth) -> (int, int):
@@ -9,7 +9,7 @@ def get_best_move(board: Board, player_color, depth) -> (int, int):
 
     alpha = - math.inf
     beta = math.inf
-    for _, move in enumerate(moves):
+    for move in moves:
         clonedBoard = board.clone()
         clonedBoard.add_piece(move[0], move[1], player_color)
         move_score = alpha_beta_pruning(clonedBoard, player_color, alpha, beta, depth, False)
@@ -26,9 +26,9 @@ def alpha_beta_pruning(board: Board, player_color, alpha, beta, depth, is_maximi
 
     if is_maximizing:
         max_score = -math.inf
-        for _, move in enumerate(moves):
+        for move in moves:
             clonedBoard = board.clone()
-            clonedBoard.add_piece(move[0], move[1], player_color)
+            clonedBoard.set_human_piece(move[0], move[1], player_color)
             move_score = alpha_beta_pruning(clonedBoard, 1 - player_color, alpha, beta, depth - 1, False)
             max_score = max(max_score, move_score)
             alpha = max(alpha, move_score)

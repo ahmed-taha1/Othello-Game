@@ -19,6 +19,11 @@ class Board:
                 count += (color == self.grid[i][j])
         return count
 
+    def is_move_valid(self,i,j,player_color):
+        move = [i,j]
+        possible_moves = self.get_possible_cell_moves(player_color)
+        return any(possible_move == move for possible_move in possible_moves)
+
     def add_piece(self, i, j, curr_player_color):
         def flip_pieces(i_play_position, j_play_position, color, change_of_coordinates):
             rows = len(self.grid)
@@ -78,3 +83,7 @@ class Board:
 
     def clone(self):
         return copy.deepcopy(self)
+
+    # to avoid shared refrences , getting mutated externally
+    def get_grid(self):
+        return copy.deepcopy(self.grid)
