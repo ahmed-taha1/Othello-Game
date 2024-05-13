@@ -1,6 +1,6 @@
 import tkinter as tk
 from View.piece import Piece
-
+import time
 
 class Board:
     rows = 8
@@ -15,7 +15,7 @@ class Board:
         self.master = master
         self.board = []
         self.init_board()
-        self.result_label = tk.Label(self.master, text="", font=("Arial", 45))
+        self.result_label = tk.Label(self.master, text="", font=("Arial", 45),bg="lightgreen",fg="black" ,width=5,height=3, borderwidth=2, relief="solid")
 
     def init_board(self):
         for i in range(self.rows):
@@ -43,11 +43,15 @@ class Board:
         square = self.board[row][col]
         piece = Piece(square, self.human_color)
         self.board[row][col].piece = piece
+        time.sleep(0.05)
+        square.update()
 
     def set_ai_piece(self, row, col):
         square = self.board[row][col]
         piece = Piece(square, self.ai_color)
         self.board[row][col].piece = piece
+        time.sleep(0.05)
+        square.update()
 
     def cell_clicked(self, event):
         row = event.widget.grid_info()["row"]
@@ -60,4 +64,4 @@ class Board:
 
     def end_game(self, message):
         self.result_label.config(text=message)
-        self.result_label.grid(row=self.rows // 2, column=self.cols // 2)
+        self.result_label.grid(row=2, column=2, columnspan=self.rows // 2,rowspan=self.cols // 2,sticky="EW")

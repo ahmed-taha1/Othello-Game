@@ -77,7 +77,7 @@ class BoardController:
         robot_score = self.board_entity.get_color_count(self.robot_id)
         message = ""
         if human_score > robot_score:
-            message = "you wins"
+            message = "you win"
         elif human_score == robot_score:
             message = "draw"
         elif human_score < robot_score:
